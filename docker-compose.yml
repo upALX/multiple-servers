@@ -1,0 +1,34 @@
+services:
+  main_server:
+    build:
+      context: ./main_server
+    container_name: main_server
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ./main_server/pip_index:/app/pip_index
+
+  lud6:
+    build:
+      context: ./lud6
+    container_name: lud6
+    depends_on:
+      main_server:
+        condition: service_healthy
+    environment:
+      - PIP_INDEX_URL=http://main_server:8080
+
+  ludf:
+    build:
+      context: ./ludf
+    container_name: ludf
+    depends_on:
+      main_server:
+        condition: service_healthy
+    environment:
+      - PIP_INDEX_URL=http://main_server:8080
