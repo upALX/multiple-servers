@@ -16,19 +16,37 @@ services:
   lud6:
     build:
       context: ./lud6
+      args:
+      - JUPYTER_CONFIG_DIR=${JUPYTER_CONFIG_DIR}
     container_name: lud6
     depends_on:
       main_server:
         condition: service_healthy
     environment:
-      - PIP_INDEX_URL=http://main_server:8080
+      - PIP_INDEX_URL=${MAIN_HOST}
+      - JUPYTER_CONFIG_DIR=${JUPYTER_CONFIG_DIR}
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./lud6:/workspace
+    working_dir: /workspace
+    command: ${JUPYTER_SERVICE_RUN}
 
   ludf:
     build:
       context: ./ludf
+      args:
+      - JUPYTER_CONFIG_DIR=${JUPYTER_CONFIG_DIR}
     container_name: ludf
     depends_on:
       main_server:
         condition: service_healthy
     environment:
-      - PIP_INDEX_URL=http://main_server:8080
+      - PIP_INDEX_URL=${MAIN_HOST}
+      - JUPYTER_CONFIG_DIR=${JUPYTER_CONFIG_DIR}
+    ports:
+      - "8889:8888"
+    volumes:
+      - ./ludf:/workspace
+    working_dir: /workspace
+    command: ${JUPYTER_SERVICE_RUN}
