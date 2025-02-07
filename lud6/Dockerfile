@@ -13,5 +13,6 @@ RUN python3.8 -m pip install jupyterlab ipykernel && \
     python3.8 -m ipykernel install --user --name=python3 --display-name "Python 3.8 (lud)"
 
 COPY jupyter_notebook_config.py /root/.jupyter/
+COPY setup_kernel.py /root/.jupyter/
 
 CMD ["tail", "-f", "/dev/null"]
