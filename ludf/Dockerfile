@@ -2,6 +2,7 @@ FROM oraclelinux:8.10
 
 # Atualiza pacotes e instala Python 3.8 + pip
 RUN yum update -y && \
+    dnf install nano && \
     dnf module enable -y python38 && \
     dnf install -y python38 python38-pip && \
     python3.8 -m ensurepip && \
