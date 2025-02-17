@@ -18,6 +18,7 @@ RUN curl https://pyenv.run | bash && \
     echo 'eval "$(pyenv init --path)"' >> ~/.bashrc && \
     echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 
+
 EXPOSE 8080
 
 ENTRYPOINT ["/bin/bash", "-c", "source ~/.bashrc && pypi-server -p 8080 /app/pip_index/packages"]

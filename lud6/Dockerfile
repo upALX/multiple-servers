@@ -15,4 +15,4 @@ RUN python3.8 -m pip install jupyterlab ipykernel && \
 COPY jupyter_notebook_config.py /root/.jupyter/
 COPY setup_kernel.py /root/.jupyter/
 
-CMD ["tail", "-f", "/dev/null"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--NotebookApp.token=''"]
